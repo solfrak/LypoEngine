@@ -1,8 +1,10 @@
 //
 // Created by lapor on 7/19/2024.
 //
-#include <iostream>
+#include <core/console_log.h>
 int main()
 {
-    std::cout << "Hello World" << std::endl;
+    LYPO_CORE_INFO("Hello World");
+    LYPO_CORE_ERROR("Hello World");
+    LYPO_CORE_WARN("Hello World");
 }
