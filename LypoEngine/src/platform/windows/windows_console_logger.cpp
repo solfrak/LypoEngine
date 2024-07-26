@@ -27,9 +27,11 @@ void ConsoleLogger::info(const std::string &msg) const {
 void ConsoleLogger::warn(const std::string &msg) const {
     setColor(FOREGROUND_RED | FOREGROUND_GREEN);
     std::cout << "[" << _prefix << " - WARNING] " << msg << std::endl;
+    setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
 
 void ConsoleLogger::error(const std::string &msg) const {
     setColor(FOREGROUND_RED);
     std::cout << "[" << _prefix << " - ERROR] " << msg << std::endl;
+    setColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
