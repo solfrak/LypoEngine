@@ -1,51 +1,22 @@
 //
 // Created by lapor on 7/19/2024.
 //
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
 
-
+#include "windows_window.h"
 
 int main(void)
 {
-    GLFWwindow* window;
-
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    {
-        std::cout << "Error in glad load" << std::endl;
-        return -1;
-    }
+    platform::WindowsWindow window = platform::WindowsWindow("Windows Window", 600, 700, core::WindowFlags::DEFAULT);
+   
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow*>(window.getNativeWindow())))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
         /* Poll for and process events */
-        glfwPollEvents();
+        window.onUpdate();
     }
-
-    glfwTerminate();
     return 0;
 }
