@@ -13,7 +13,7 @@
 int main(void)
 {
     platform::WindowsWindow window = platform::WindowsWindow("Windows Window", 600, 700, core::WindowFlags::DEFAULT);
-    Shader *shader = new OpenglShader("vertex.glsl", "fragment.glsl");
+    Lypo::Shader *shader = new Lypo::OpenglShader("vertex.glsl", "fragment.glsl");
 
     float vertices[] = {
         -0.5f, -0.5f, 0.0f, // left

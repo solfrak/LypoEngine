@@ -5,17 +5,22 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-enum ShaderType
+namespace Lypo
 {
-  Vertex, Fragment
-};
+    enum ShaderType
+    {
+        Vertex, Fragment
+    };
 
-class Shader
-{
-public:
-  virtual ~Shader() = default;
+    class Shader
+    {
+    public:
+        virtual ~Shader() = default;
 
-  virtual void bind() const = 0;
-  virtual void unbind() const = 0;
-};
+        virtual void bind() const = 0;
+
+        virtual void unbind() const = 0;
+    };
+}
+
 #endif //SHADER_H

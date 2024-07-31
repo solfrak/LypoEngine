@@ -9,16 +9,22 @@
 #include "core/rendering/shader.h"
 
 
-class OpenglShader final : public Shader
+namespace Lypo
 {
-public:
-  OpenglShader(const std::string &vertex_path, const std::string &fragment_path);
-  void bind() const override;
-  void unbind() const override;
+    class OpenglShader final : public Shader
+    {
+    public:
+        OpenglShader(const std::string &vertex_path, const std::string &fragment_path);
 
-private:
-  unsigned int program_id = 0;
-};
+        void bind() const override;
+
+        void unbind() const override;
+
+    private:
+        unsigned int program_id = 0;
+    };
+
+}
 
 
 
