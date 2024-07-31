@@ -6,42 +6,19 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "core/rendering/shader.h"
+#include "windows_window.h"
 #include "platform/opengl/opengl_shader.h"
 
 
 int main(void)
 {
-    GLFWwindow* window;
-
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    {
-        std::cout << "Error in glad load" << std::endl;
-        return -1;
-    }
-
-    Shader* shader = new OpenglShader("vertex.glsl", "fragment.glsl");
+    platform::WindowsWindow window = platform::WindowsWindow("Windows Window", 600, 700, core::WindowFlags::DEFAULT);
+    Shader *shader = new OpenglShader("vertex.glsl", "fragment.glsl");
 
     float vertices[] = {
         -0.5f, -0.5f, 0.0f, // left
-         0.5f, -0.5f, 0.0f, // right
-         0.0f,  0.5f, 0.0f  // top
+        0.5f, -0.5f, 0.0f, // right
+        0.0f, 0.5f, 0.0f // top
     };
 
     unsigned int VBO, VAO;
@@ -53,7 +30,7 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
 
     // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
@@ -63,7 +40,7 @@ int main(void)
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(reinterpret_cast<GLFWwindow *>(window.getNativeWindow())))
     {
         /* Render here */
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -74,10 +51,9 @@ int main(void)
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawArrays(GL_TRIANGLES, 0, 3);
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
 
         /* Poll for and process events */
-        glfwPollEvents();
+        window.onUpdate();
     }
 
     glfwTerminate();
