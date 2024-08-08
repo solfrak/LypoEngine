@@ -31,6 +31,10 @@ else()
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif ()
 
-add_executable(lypo_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES})
-
+add_library(lypo_engine ${CORE_SOURCES} ${PLATFORM_SOURCES} ${RENDERING_SOURCES})
 target_link_libraries(lypo_engine glfw glad)
+
+
+project(lypo_sandbox)
+add_executable(lypo_sandbox LypoSandbox/main.cpp)
+target_link_libraries(lypo_sandbox lypo_engine)

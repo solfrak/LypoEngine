@@ -3,11 +3,11 @@
 //
 #include "windows_window.h"
 
-namespace platform
+namespace Lypo
 {
-        WindowsWindow::WindowsWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag) noexcept : WindowsWindow(core::WindowProperties(title, width, height, flag)) {}
+        WindowsWindow::WindowsWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const WindowFlags& flag) noexcept : WindowsWindow(WindowProperties(title, width, height, flag)) {}
         
-        WindowsWindow::WindowsWindow(const core::WindowProperties& properties) noexcept
+        WindowsWindow::WindowsWindow(const WindowProperties& properties) noexcept
         {
             initialize(properties);
         }
@@ -17,7 +17,7 @@ namespace platform
             shutdown();
         }
 
-        void WindowsWindow::initialize(const core::WindowProperties& properties) noexcept
+        void WindowsWindow::initialize(const WindowProperties& properties) noexcept
         {
             data_.title = properties.title;
             data_.width = properties.width;
@@ -27,12 +27,12 @@ namespace platform
 
             switch (properties.flag)
             {
-                    case core::WindowFlags::FULLSCREEN:
+                    case WindowFlags::FULLSCREEN:
                         monitor_ = glfwGetPrimaryMonitor();
-                    case core::WindowFlags::DEFAULT:
+                    case WindowFlags::DEFAULT:
                         window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), monitor_, NULL);
                         break;
-                    case core::WindowFlags::WINDOWED_FULLSCREEN:
+                    case WindowFlags::WINDOWED_FULLSCREEN:
                         window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(),monitor_, NULL);
                         monitor_ = glfwGetPrimaryMonitor();
                         mode_ = glfwGetVideoMode(monitor_);

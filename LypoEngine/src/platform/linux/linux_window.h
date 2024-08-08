@@ -12,16 +12,16 @@
 #include <string>
 #include <cstdint>
 
-namespace platform 
+namespace Lypo
 {
         /**
          * @brief Linux concrete class of core::Window
          */
-        class LinuxWindow : public core::Window
+        class LinuxWindow : public Window
         {
         public:
-            LinuxWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag = core::WindowFlags::DEFAULT) noexcept;
-            LinuxWindow(const core::WindowProperties& properties) noexcept;
+            LinuxWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const WindowFlags& flag = WindowFlags::DEFAULT) noexcept;
+            LinuxWindow(const WindowProperties& properties) noexcept;
             virtual ~LinuxWindow() noexcept override;
 
             void onUpdate() override;
@@ -34,7 +34,7 @@ namespace platform
 
             void* getNativeWindow() const;
         private:
-            void initialize(const core::WindowProperties& properties) noexcept;
+            void initialize(const WindowProperties& properties) noexcept;
             void shutdown() noexcept;
         private:
             GLFWwindow* window_ = nullptr;

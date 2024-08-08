@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "core/window.h"
+#include "../../core/window/window.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -12,16 +12,16 @@
 #include <string>
 #include <cstdint>
 
-namespace platform 
+namespace Lypo
 {
         /**
          * @brief Windows concrete class of core::Window
          */
-        class WindowsWindow : public core::Window
+        class WindowsWindow : public Window
         {
         public:
-            WindowsWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const core::WindowFlags& flag = core::WindowFlags::DEFAULT) noexcept;
-            WindowsWindow(const core::WindowProperties& properties) noexcept;
+            WindowsWindow(const std::string& title, const uint32_t& width, const uint32_t& height, const WindowFlags& flag = WindowFlags::DEFAULT) noexcept;
+            WindowsWindow(const WindowProperties& properties) noexcept;
             virtual ~WindowsWindow() noexcept override;
 
             void onUpdate() override;
@@ -34,7 +34,7 @@ namespace platform
 
             void* getNativeWindow() const;
         private:
-            void initialize(const core::WindowProperties& properties) noexcept;
+            void initialize(const WindowProperties& properties) noexcept;
             void shutdown() noexcept;
         private:
             GLFWwindow* window_ = nullptr;
